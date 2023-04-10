@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import storiresService from '../services/stories.services';
+import storiresService from '../services/stories.services.js';
 import { historyType } from '../protocols';
 
 async function listStories(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
