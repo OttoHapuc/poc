@@ -22,7 +22,7 @@ async function createStory({ author, history }: historyType): Promise<QueryResul
 async function updateStory(id: number): Promise<QueryResult> {
   return await db.query(
     `
-      UPDATE stories SET ...
+      UPDATE stories SET stories  WHERE id = $1
     `,
     [id]
   );
@@ -40,7 +40,7 @@ async function deleteStory(id: number): Promise<QueryResult> {
 async function findById(id: number): Promise<QueryResult> {
   return await db.query(
     `
-      SELECT * FROM users WHERE id = $1
+      SELECT * FROM stories WHERE id = $1
     `,
     [id]
   );

@@ -6,7 +6,7 @@ import schema from "../schemas/stories.schemas.js";
 const historyRoutes = Router();
 
 historyRoutes.get('/', storiesControllers.listStories);
-historyRoutes.post('/', validate(schema.historySchema, 'body'),storiesControllers.createStory);
+historyRoutes.post('/', /*validate(schema.historySchema, 'body'), */storiesControllers.createStory);
 historyRoutes.patch('/:id', storiesControllers.updateStory);
 historyRoutes.delete('/:id', storiesControllers.deleteStory);
 
