@@ -1,49 +1,30 @@
-import db from '../config/db.js';
+import prisma from '../config/db.js';
 import { QueryResult } from 'pg';
 import { historyType } from '../protocols.js';
 
-async function listStories(): Promise<QueryResult> {
-  return await db.query(
-    `
-        SELECT * FROM stories
-    `);
+async function listStories() {
+  return await prisma.stories.findMany();
 }
 
-async function createStory({ author, history }: historyType): Promise<QueryResult> {
-  return await db.query(
-    `
-      INSERT INTO stories (author, history)
-      VALUES ($1, $2)
-    `,
-    [author, history]
-  );
+async function createStory({ author, history }) {
+  return await prisma.stories.create({
+    data: {history, author}
+  })
 }
 
-async function updateStory(id: number): Promise<QueryResult> {
-  return await db.query(
-    `
-      UPDATE stories SET stories  WHERE id = $1
-    `,
-    [id]
-  );
+async function updateStory(id, history) {
+  return await prisma.stories.update({
+    where: {id},
+    data: {history}
+  })
 }
 
-async function deleteStory(id: number): Promise<QueryResult> {
-  return await db.query(
-    `
-      DELETE FROM stories WHERE id = $1
-    `,
-    [id]
-  );
+async function deleteStory(id) {
+  return await prisma.stories.delete({where:{id}});
 }
 
-async function findById(id: number): Promise<QueryResult> {
-  return await db.query(
-    `
-      SELECT * FROM stories WHERE id = $1
-    `,
-    [id]
-  );
+async function findById(id) {
+  return await prisma.stories.findFirst({where:{id}});
 }
 
 export default {
